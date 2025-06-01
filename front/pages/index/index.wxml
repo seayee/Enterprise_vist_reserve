@@ -1,0 +1,5 @@
+<view>
+{{weixin}}
+<button bindtap = "getdata">GET</button>
+<button bindtap = "senddata">SEND</button>
+</view>

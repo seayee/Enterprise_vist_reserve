@@ -1,0 +1,12 @@
+<configuration>
+    <mirrors>
+        <mirror>
+            <id>aliyunmaven</id>
+            <mirrorOf>central</mirrorOf>
+            <name>Aliyun Maven</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </mirror>
+    </mirrors>
+    <connectionTimeout>600000</connectionTimeout>
+    <timeout>600000</timeout>
+</configuration>
