@@ -1,38 +1,92 @@
 Page({
   data: {
-    phone: '',
-    password: ''
+    phoneNumber: '',
+    password: '',
+    showPassword: false,
+    registerColor: 'blue',
+    eye: '/images/隐藏密码.png'
   },
-  // 输入手机号
-  onPhoneInput(event) {
+
+  onPhoneInput: function(event) {
     this.setData({
-      phone: event.detail.value
+      phoneNumber: event.detail.value
     });
+    console.log("Phone Input:", this.data.phoneNumber); // 打印手机号输入值
   },
-  // 输入密码
-  onPasswordInput(event) {
+
+  onPasswordInput: function(event) {
     this.setData({
       password: event.detail.value
     });
+    console.log("Password Input:", this.data.password); // 打印密码输入值
   },
-  // 登录
-  onLoginTap() {
-    const { phone, password } = this.data;
+
+  togglePasswordVisibility: function() {
     this.setData({
-      phone: res.data
+      showPassword: !this.data.showPassword,
+      eye: this.data.showPassword ? '/images/显示密码.png' : '/images/隐藏密码.png'
     });
-    // 发起登录请求
+  },
+
+  onSubmit: function() {
+    const { phoneNumber, password } = this.data;
+    console.log("Phone:", phoneNumber);
+    console.log("Password:", password);
+
     wx.request({
-      url: 'https://localhost:8080/login', // 替换为你的登录接口
-      // method: 'POST',
+     url: 'http://localhost:8080/login',
+      method: 'POST',
+      data: {
+        phoneNumber,
+        password
+      },
       success: (res) => {
-        console.log(res.statusCode)
+        console.log("Login Response:", res.data);
         if (res.statusCode === 200) {
-          this.setData({
-            phone: res.data
+          wx.showToast({
+            title: '登录成功',
+            icon: 'success'
+          });
+          // 跳转到首页或其他页面
+          if(res.data === "管理员"){
+            wx.redirectTo({
+              url: '/pages/admin/home/home?phoneNumber=' + phoneNumber
+            });
+          }else if(res.data === "普通用户"){
+            wx.redirectTo({
+              url: '/pages/user/home/home?phoneNumber' + phoneNumber
+            });
+          }else if(res.data === "密码错误"){
+            wx.showToast({
+              title: '密码错误',
+              icon: 'none'
+            });
+          }else if(res.data === "用户不存在"){
+            wx.showToast({
+              title: '用户不存在',
+              icon: 'none'
+            });
+          }
+        } else {
+          wx.showToast({
+            title: '登录失败',
+            icon: 'none'
           });
         }
       },
-    })
+      fail: (err) => {
+        console.error("Login Error:", err);
+        wx.showToast({
+          title: '请求失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  onRegister: function() {
+    wx.navigateTo({
+      url: '/pages/register/register'
+    });
   }
-})
+});

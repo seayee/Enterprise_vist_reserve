@@ -1,60 +1,65 @@
-.container {
+.login-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  height: 100vh;
+  margin: 0;
   padding: 20px;
-  height: 100%;
+  background-color: #8ccbff;
 }
 
-.logo {
-  margin-bottom: 40px;
-}
-
-.logo-image {
-  width: 100px;
-  height: 100px;
-}
-
-.form {
+.login {
   width: 100%;
-  max-width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.input-group {
-  margin-bottom: 20px;
+.title {
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 1.5rem;
 }
 
-.label {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 5px;
+.input-form{
+  margin-top: 50rpx;
+}
+
+.form-item {
+  height: 80rpx;
+  border: 1px solid #ccc;
+  border-radius: 8rpx;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  height: 55rpx; 
+  display: block; 
+  box-sizing: border-box; 
+  width: 55rpx;
+  margin: 0 10rpx;
 }
 
 .input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  display:inline
 }
 
-.login-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #04080c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.register-link {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.register {
-  color: #007aff;
+.toggle-icon {
+  height: 40rpx;
+  width: 40rpx;
+  margin-left: 10rpx;
+  position: absolute; /* 设置为绝对定位 */
+  right: 120rpx; /* 距离右边10rpx */
   cursor: pointer;
+}
+
+.submit-btn {
+  background-color: rgb(32, 34, 37);
+  color: #fff;
+}
+
+.to-register {
+  color: #1aad19;
 }

@@ -1,2 +1,39 @@
-<!--pages/register/register.wxml-->
-<text>pages/register/register.wxml</text>
+<view class="register-container" style="height: 1443rpx; display: flex; box-sizing: border-box">
+<!-- 两种角色：管理员和普通用户 -->
+
+  <view class="register" style="height: 833rpx; display: block; box-sizing: border-box">
+    <view class="title" style="height: 100rpx; display: block; box-sizing: border-box">注册</view>
+    <!-- 选择账号用户 -->
+    <view class="role-selector">
+      <view class="role-item" data-role="管理员" bindtap="toggleColors" style="background-color: {{adminBgColor}}; color: {{adminTextColor}};">
+        <view class="role-text">管理员</view>
+      </view>
+      <view class="role-item" data-role="普通用户" bindtap="toggleColors" style="background-color: {{userBgColor}}; color: {{userTextColor}};">
+        <view class="role-text">普通用户</view>
+      </view>
+    </view>
+    <!-- 输入 -->
+    <view class="input-form" style="height: 195rpx; display: block; box-sizing: border-box">
+      <view class="form-item">
+        <image class="icon" src="/images/手机.png" mode="aspectFill"/>
+        <input class="input" type="number" placeholder="请输入手机号" bindinput="onPhoneInput" />
+      </view>
+      <view class="form-item">
+        <image class="icon" src="/images/密码.png" />
+        <input class="input" type="password" placeholder="请输入密码" password="{{showPassword}}" bindinput="onPasswordInput" />
+        <image class="toggle-icon" src="{{eye}}" bindtap="togglePasswordVisibility" />
+      </view>
+      <view class="form-item">
+        <image class="icon" src="/images/密码1.png" />
+        <input class="input" type="password" placeholder="请确认密码" password="{{showConfirmPassword}}" bindinput="onPasswordConfirm" />
+        <image class="toggle-icon" src="{{eye1}}" bindtap="toggleConfirmPasswordVisibility" />
+      </view>
+      <button class="submit-btn" bindtap="onSubmit" style="position: relative; left: -1rpx; top: -4rpx">注册</button>
+      <!-- 跳转登录页面 -->
+      <view style="text-align: center">
+        <text>已有账号？</text>
+        <text class="tologin" bindtap="onLogin" style="color: {{loginColor}}">登录</text>
+      </view>
+    </view>
+  </view>
+</view>
