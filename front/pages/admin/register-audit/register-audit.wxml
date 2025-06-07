@@ -1,0 +1,107 @@
+<!-- pages/admin/register-audit/register-audit.wxml -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-title">注册申请审核</view>
+  
+  <!-- 导航栏 -->
+  <view class="nav-tabs">
+    <view class="tab-item {{activeTab === 'admin' ? 'active' : ''}}" bindtap="switchTab" data-tab="admin">
+      管理员申请
+    </view>
+    <view class="tab-item {{activeTab === 'user' ? 'active' : ''}}" bindtap="switchTab" data-tab="user">
+      用户申请
+    </view>
+  </view>
+  
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input">
+      <image src="/images/search.png" mode="aspectFit"></image>
+      <input type="text" placeholder="搜索申请人姓名/账号" bindinput="onSearchInput" />
+    </view>
+    <view class="filter-options">
+      <picker bindchange="onStatusChange" value="{{statusIndex}}" range="{{statusOptions}}">
+        <view class="filter-item">
+          <text>状态：{{statusOptions[statusIndex]}}</text>
+          <image src="/images/down-arrow.png" mode="aspectFit"></image>
+        </view>
+      </picker>
+      <picker bindchange="onTimeChange" value="{{timeIndex}}" range="{{timeOptions}}">
+        <view class="filter-item">
+          <text>时间：{{timeOptions[timeIndex]}}</text>
+          <image src="/images/down-arrow.png" mode="aspectFit"></image>
+        </view>
+      </picker>
+    </view>
+  </view>
+  
+  <!-- 申请列表 -->
+  <view class="application-list">
+    <!-- 列表为空时的提示 -->
+    <view class="empty-list" wx:if="{{applications.length === 0}}">
+      <image src="/images/empty.png" mode="aspectFit"></image>
+      <text>暂无{{activeTab === 'admin' ? '管理员' : '用户'}}申请</text>
+    </view>
+    
+    <!-- 申请卡片 -->
+    <view class="application-card" wx:for="{{applications}}" wx:key="id" wx:for-item="item">
+      <view class="card-header">
+        <text class="apply-id">申请编号：{{item.applyId}}</text>
+        <text class="apply-time">{{item.applyTime}}</text>
+      </view>
+      
+      <view class="card-content">
+        <view class="user-info">
+          <image class="avatar" src="{{item.avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+          <view class="info-detail">
+            <text class="username">{{item.username}}</text>
+            <text class="user-email">{{item.email}}</text>
+            <text class="user-phone">{{item.phone}}</text>
+          </view>
+          <view class="apply-status {{item.status === 'pending' ? 'pending' : item.status === 'approved' ? 'approved' : 'rejected'}}">
+            {{item.statusText}}
+          </view>
+        </view>
+        
+        <view class="apply-details">
+          <view class="detail-item">
+            <text class="detail-label">申请角色：</text>
+            <text class="detail-value">{{item.roleName}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">所属部门：</text>
+            <text class="detail-value">{{item.department}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">申请理由：</text>
+            <text class="detail-value">{{item.reason}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="card-footer" wx:if="{{item.status === 'pending'}}">
+        <button class="reject-btn" bindtap="rejectApplication" data-id="{{item.id}}">拒绝</button>
+        <button class="approve-btn" bindtap="approveApplication" data-id="{{item.id}}">同意</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 分页控件 -->
+  <view class="pagination" wx:if="{{applications.length > 0}}">
+    <button class="page-btn" disabled="{{currentPage === 1}}" bindtap="prevPage">上一页</button>
+    <text class="page-info">第 {{currentPage}}/{{totalPages}} 页</text>
+    <button class="page-btn" disabled="{{currentPage === totalPages}}" bindtap="nextPage">下一页</button>
+  </view>
+  
+  <!-- 拒绝理由弹窗 -->
+  <view class="modal-mask" wx:if="{{showRejectModal}}">
+    <view class="modal-container">
+      <view class="modal-title">拒绝理由</view>
+      <textarea class="reject-reason" placeholder="请输入拒绝理由" bindinput="onReasonInput"></textarea>
+      <view class="modal-buttons">
+        <button class="cancel-btn" bindtap="closeRejectModal">取消</button>
+        <button class="confirm-btn" bindtap="confirmReject">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

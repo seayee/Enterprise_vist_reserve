@@ -1,0 +1,107 @@
+<!-- pages/admin/notice/notice.wxml -->
+<view class="container">
+  <!-- 顶部操作区 -->
+  <view class="header" wx:if="{{isAdmin}}" bindtap="showPublishModal">
+    <view class="float-right">
+      <image 
+        src="/images/加号.png" 
+        mode="aspectFit" 
+        class="add-btn" 
+      ></image>
+    </view>
+  </view>
+
+  <!-- 搜索筛选 -->
+  <view class="search-bar">
+    <view class="search-input">
+      <image src="/images/搜索.png" mode="aspectFit"></image>
+      <input type="text" placeholder="搜索通知标题" bindinput="onSearchInput" />
+    </view>
+    <view class="filter-options">
+      <picker bindchange="onTypeChange" value="{{typeIndex}}" range="{{typeOptions}}">
+        <view class="filter-item">
+          <text>类型：{{typeOptions[typeIndex]}}</text>
+          <image src="/images/向下.png" mode="aspectFit"></image>
+        </view>
+      </picker>
+      <picker bindchange="onStatusChange" value="{{statusIndex}}" range="{{statusOptions}}">
+        <view class="filter-item">
+          <text>{{isAdmin ? '状态' : '已读'}}：{{statusOptions[statusIndex]}}</text>
+          <image src="/images/向下.png" mode="aspectFit"></image>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 通知列表 -->
+  <view class="notice-list">
+    <!-- 空状态 -->
+    <view class="empty-list" wx:if="{{notices.length === 0}}">
+      <image src="/images/空白.png" mode="aspectFit"></image>
+      <text>{{isAdmin ? '暂无通知' : '暂无通知，请稍后查看'}}</text>
+    </view>
+
+    <!-- 通知项 -->
+    <view class="notice-item" wx:for="{{notices}}" wx:key="id" bindtap="viewNoticeDetail" data-id="{{item.id}}">
+      <view class="notice-header">
+        <text class="title {{item.isNew ? 'new' : ''}}">{{item.title}}</text>
+        <text class="type-tag {{item.type === '重要' ? 'important' : item.type === '公告' ? 'announcement' : 'normal'}}">
+          {{item.type}}
+        </text>
+      </view>
+      <view class="notice-content">
+        <text>{{item.summary}}</text>
+      </view>
+      <view class="notice-footer">
+        <text class="time">{{item.publishTime}}</text>
+        <text class="author" wx:if="{{isAdmin}}">发布人：{{item.author}}</text>
+        <text class="status" wx:if="!isAdmin && item.isRead">已读</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分页控件 -->
+  <view class="pagination" wx:if="{{notices.length > 0}}">
+    <button class="page-btn" disabled="{{currentPage === 1}}" bindtap="prevPage">上一页</button>
+    <text class="page-info">第 {{currentPage}}/{{totalPages}} 页</text>
+    <button class="page-btn" disabled="{{currentPage === totalPages}}" bindtap="nextPage">下一页</button>
+  </view>
+
+  <!-- 发布通知弹窗 -->
+  <view class="modal-mask" wx:if="{{showPublishModal}}">
+    <view class="modal-container">
+      <view class="modal-title">发布通知</view>
+      <view class="form-item">
+        <text class="label">标题</text>
+        <input type="text" placeholder="请输入通知标题" bindinput="onTitleInput" />
+      </view>
+      <view class="form-item">
+        <text class="label">类型</text>
+        <picker bindchange="onPublishTypeChange" value="{{publishTypeIndex}}" range="{{publishTypeOptions}}">
+          <view class="picker">
+            <text>{{publishTypeOptions[publishTypeIndex]}}</text>
+          </view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text class="label">内容</text>
+        <editor class="editor" bindready="onEditorReady" bindinput="onEditorInput" />
+      </view>
+      <view class="form-item">
+        <text class="label">附件（可选）</text>
+        <view class="upload-area" bindtap="chooseImage">
+          <image src="/images/upload.png" mode="aspectFit"></image>
+          <text>点击上传附件</text>
+        </view>
+        <view class="attachment" wx:if="{{attachmentUrl}}">
+          <image src="{{attachmentUrl}}" mode="aspectFit"></image>
+          <button class="delete-btn" bindtap="removeAttachment">删除</button>
+        </view>
+      </view>
+      <view class="modal-buttons">
+        <button class="cancel-btn" bindtap="closePublishModal">取消</button>
+        <button class="confirm-btn" bindtap="publishNotice">发布</button>
+      </view>
+    </view>
+  </view>
+</view>

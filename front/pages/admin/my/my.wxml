@@ -1,0 +1,29 @@
+<!-- pages/my/my.wxml -->
+<view class="my-container">
+    <!-- 基本信息 -->
+    <view class="base-info">
+      <!-- 头像区域 -->
+      <view class="avatar-container">
+        <image class="avatar" src="{{avatarUrl}}" mode="aspectFill"></image>
+      </view>
+      <!-- 姓名区域 -->
+      <view class="nickname" bind:tap="onEditInfo">{{nickname}} >></view>
+    </view>
+  <view class="other" style="width: 758rpx; display: block; box-sizing: border-box; height: 1031rpx">
+    <!-- 访客码 -->
+    <view class="visit-code" bind:tap="onVisitCode">
+      <image style="width: 31rpx; height: 31rpx; display: inline-block; box-sizing: border-box" src="/images/访客码.png" mode=""/>
+      <text class="code-text"> 访客码 </text>
+    </view>
+    <!-- 处理记录 -->
+    <view class="op-log">
+      <image style="width: 39rpx; height: 37rpx; display: inline-block; box-sizing: border-box" src="/images/操作日志.png" mode=""/>
+      <text class="log-text"> 处理记录 </text>
+    </view>
+    <!-- 设置 -->
+    <view class="settings">
+      <image style="width: 37rpx; height: 41rpx; display: inline-block; box-sizing: border-box" src="/images/设置.png" mode=""/>
+      <text class="set-text"> 设置 </text>
+    </view>
+  </view>
+</view>

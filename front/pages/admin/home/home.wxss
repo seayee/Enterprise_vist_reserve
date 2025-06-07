@@ -1,1 +1,99 @@
-/* pages/admin/home.wxss */
+/* pages/admin/home/home.wxss */
+.admin-container {
+  padding: 30rpx;
+  background-color: #1a73e8;
+  min-height: 90vh;
+}
+
+.dashboard {
+  background-color: white;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.08);
+  padding: 40rpx 30rpx;
+  margin-top: 30rpx;
+}
+
+.greeting {
+  font-size: 32rpx;
+  color: #1a73e8;
+  margin-bottom: 40rpx;
+  display: flex;
+  align-items: center;
+}
+
+.user-name {
+  font-weight: bold;
+  margin-right: 10rpx;
+}
+
+.user-role {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.modules-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30rpx;
+}
+
+.modules {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx;
+  background-color: #f8f9fa;
+  border-radius: 16rpx;
+  transition: transform 0.2s ease;
+}
+
+.modules:hover {
+  transform: translateY(-8rpx);
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.06);
+}
+
+.module:hover{
+  transition: border-color 2s ease; /* 过渡效果 */
+  border-bottom: 2rpx solid #0000ff; 
+}
+
+.module {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 400rpx;
+}
+
+
+.module text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 权限区分样式 */
+.admin-modules .module {
+  width:100%;
+  margin: 20rpx;
+}
+
+.user-modules .module {
+  width:100%;
+  padding: 30rpx;
+  margin: 20rpx;
+}
+
+.visitor-tip {
+  text-align: center;
+  margin-top: 50rpx;
+  color: #ff5722;
+}
+
+.go-visitor-btn {
+  margin-top: 20rpx;
+  padding: 15rpx 40rpx;
+  background-color: #ff5722;
+  color: white;
+  border-radius: 24rpx;
+  font-size: 28rpx;
+}

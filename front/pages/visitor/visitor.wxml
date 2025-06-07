@@ -1,0 +1,59 @@
+<!-- pages/visit_management/visit_management.wxml -->
+<view class="container">
+  <!-- 顶部导航 -->
+  <view class="top-nav">
+    <view class="nav-title">访客管理</view>
+    <button class="apply-btn" bindtap="navigateToVisitApply">访问申请</button>
+  </view>
+
+  <!-- 状态筛选导航栏 -->
+  <view class="status-tabs">
+    <view class="tab-item {{currentTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">
+      全部
+    </view>
+    <view class="tab-item {{currentTab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">
+      待审核
+    </view>
+    <view class="tab-item {{currentTab === 'approved' ? 'active' : ''}}" bindtap="switchTab" data-tab="approved">
+      待访问
+    </view>
+    <view class="tab-item {{currentTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">
+      已访问
+    </view>
+  </view>
+
+  <!-- 访问记录列表 -->
+  <view class="record-list">
+    <view class="empty-tip" wx:if="{{records.length === 0}}">
+      暂无符合条件的记录
+    </view>
+    
+    <view class="record-card" wx:for="{{records}}" wx:key="id" bindtap="viewRecordDetail" data-id="{{item.id}}">
+      <view class="card-header">
+        <text class="apply-no">申请单号: {{item.applyNo}}</text>
+        <text class="status-tag {{item.status === 'pending' ? 'pending' : item.status === 'approved' ? 'approved' : 'completed'}}">
+          {{item.statusText}}
+        </text>
+      </view>
+      
+      <view class="card-content">
+        <view class="content-row">
+          <text class="label">被访人:</text>
+          <text class="value">{{item.visitedName}}</text>
+        </view>
+        <view class="content-row">
+          <text class="label">部门:</text>
+          <text class="value">{{item.department}}</text>
+        </view>
+        <view class="content-row">
+          <text class="label">访问日期:</text>
+          <text class="value">{{item.visitDate}}</text>
+        </view>
+      </view>
+      
+      <view class="card-footer">
+        <button class="detail-btn">查看详情</button>
+      </view>
+    </view>
+  </view>
+</view>

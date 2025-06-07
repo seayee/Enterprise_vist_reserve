@@ -1,2 +1,45 @@
-<!--pages/admin/home.wxml-->
-<text>管理员</text>
+<!-- pages/admin/home/home.wxml -->
+<view class="admin-container">
+  <view class="dashboard">
+    <!-- 头部问候 -->
+    <view class="greeting">
+      欢迎您，
+      <text class="user-name">{{userData.username}}</text>
+      <text class="user-role">{{userData.role === '管理员' ? '管理员' : '用户'}}</text>
+    </view>
+
+    <!-- 功能模块容器 -->
+    <view class="modules-container">
+      <!-- 管理员功能模块 -->
+      <view class="modules admin-modules" wx:if="{{userData.role === '管理员'}}">
+
+        <view class="module" bindtap="navigateTo" data-url="/pages/admin/role-quanxian/role-quanxian">
+          <text>角色权限</text>
+        </view>
+        <!-- <view class="module" bindtap="navigateTo" data-url="/pages/admin/admin-manage/admin-manage">
+          <text>管理员管理</text>
+        </view> -->
+        <view class="module" bindtap="navigateTo" data-url="/pages/admin/staff-manage/staff-manage">
+          <text>人员管理</text>
+        </view>
+        <view class="module" bindtap="navigateTo" data-url="/pages/admin/register-audit/register-audit">
+          <text>注册审核</text>
+        </view>
+      </view>
+
+      <!-- 普通用户功能模块 -->
+      <view class="modules user-modules" wx:elif="{{userData.role === '普通用户'}}">
+
+        <view class="module" bindtap="navigateTo" data-url="/pages/admin/visit_code/visit_code">
+          <text>访客码</text>
+        </view>
+      </view>
+
+      <!-- 访客处理（根据需求隐藏/显示） -->
+      <view class="visitor-tip" wx:if="{{userData.role === '访客'}}">
+        您的身份为访客，点击前往访客中心
+        <button class="go-visitor-btn" bindtap="navigateToVisitor">前往访客中心</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,9 +1,9 @@
 <configuration>
     <mirrors>
         <mirror>
-            <id>aliyunmaven</id>
+            <username>aliyunmaven</username>
             <mirrorOf>central</mirrorOf>
-            <name>Aliyun Maven</name>
+            <name>Aliyun Maven Aliyun Maven</name>
             <url>https://maven.aliyun.com/repository/public</url>
         </mirror>
     </mirrors>

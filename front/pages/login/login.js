@@ -2,7 +2,7 @@ Page({
   data: {
     phoneNumber: '',
     password: '',
-    showPassword: false,
+    showPassword: true,
     registerColor: 'blue',
     eye: '/images/隐藏密码.png'
   },
@@ -27,7 +27,6 @@ Page({
       eye: this.data.showPassword ? '/images/显示密码.png' : '/images/隐藏密码.png'
     });
   },
-
   onSubmit: function() {
     const { phoneNumber, password } = this.data;
     console.log("Phone:", phoneNumber);
@@ -47,14 +46,15 @@ Page({
             title: '登录成功',
             icon: 'success'
           });
-          // 跳转到首页或其他页面
-          if(res.data === "管理员"){
-            wx.redirectTo({
-              url: '/pages/admin/home/home?phoneNumber=' + phoneNumber
-            });
-          }else if(res.data === "普通用户"){
-            wx.redirectTo({
-              url: '/pages/user/home/home?phoneNumber' + phoneNumber
+
+          // 覆盖全局变量
+          const app = getApp();
+          app.globalData.userData = phoneNumber;
+
+          // 跳转
+          if(res.data === "管理员" || res.data === "普通用户" || res.data === "访客"){
+            wx.switchTab({
+              url: '/pages/admin/home/home'
             });
           }else if(res.data === "密码错误"){
             wx.showToast({
@@ -67,7 +67,7 @@ Page({
               icon: 'none'
             });
           }
-        } else {
+        }else {
           wx.showToast({
             title: '登录失败',
             icon: 'none'

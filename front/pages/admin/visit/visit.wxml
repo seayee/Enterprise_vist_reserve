@@ -1,0 +1,58 @@
+<!-- pages/visitor/visitor.wxml -->
+<view class="visitor-container">
+  <view class="search-bar">
+    <view class="search">
+      <image style="width: 39rpx; height: 39rpx; display: block; box-sizing: border-box" src="/images/搜索.png" mode=""/>
+      <input style="height: 68rpx; display: block; box-sizing: border-box; width: 631rpx" class="search-input" placeholder="请输入搜索内容" bindinput="onSearchInput" />
+    </view>
+  </view>
+  <!-- 导航 -->
+  <view class="tabs">
+    <block wx:for="{{tabs}}" wx:key="index">
+      <view class="tab-item {{activeTab === index ? 'active' : ''}}" bindtap="onTabTap" data-index="{{index}}">{{item.name}}</view>
+    </block>
+  </view>
+  <!-- 记录 -->
+  <view class="records">
+    <view class="empty-tip" wx:if="{{records.length === 0}}">
+      <image src="/images/空白.png" mode="aspectFit"></image>
+      <text>暂无符合条件的记录~</text>
+    </view>
+  
+    <block wx:for="{{records}}" wx:key="index">
+      <view class="record-card" hover-class="card-hover">
+        <!-- 头部信息 -->
+        <view class="card-header">
+          <view class="visitor-info">
+            <text class="visitor-name">姓名：{{item.name}}</text>
+            <text class="visitor-phone">手机号：{{item.phone}}</text>
+          </view>
+        </view>
+
+        <!-- 主要信息 -->
+        <view class="card-body">
+          <view class="info-row">
+            <text class="label">公司:</text>
+            <text class="value">{{item.company}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">访问人数:</text>
+            <text class="value">{{item.peoplenum}}人</text>
+          </view>
+          <view class="info-row">
+            <text class="label">访问事由:</text>
+            <text class="value">{{item.reason}}</text>
+          </view>
+        </view>
+        <!-- <view class="card-footer" wx:if="{{item.status === 'pending'}}">
+          <button class="reject-btn" bindtap="rejectApplication" data-id="{{item.id}}">拒绝</button>
+          <button class="approve-btn" bindtap="approveApplication" data-id="{{item.id}}">同意</button>
+        </view> -->
+        <!-- 底部信息 -->
+        <view class="card-footer">
+          <text class="apply-time">{{item.applydatetime}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

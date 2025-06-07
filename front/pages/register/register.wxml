@@ -1,7 +1,7 @@
 <view class="register-container" style="height: 1443rpx; display: flex; box-sizing: border-box">
 <!-- 两种角色：管理员和普通用户 -->
 
-  <view class="register" style="height: 833rpx; display: block; box-sizing: border-box">
+  <view class="register" style="height: 906rpx; display: block; box-sizing: border-box">
     <view class="title" style="height: 100rpx; display: block; box-sizing: border-box">注册</view>
     <!-- 选择账号用户 -->
     <view class="role-selector">
@@ -14,6 +14,10 @@
     </view>
     <!-- 输入 -->
     <view class="input-form" style="height: 195rpx; display: block; box-sizing: border-box">
+      <view class="form-item">
+        <image class="icon" src="/images/姓名.png" mode="aspectFill"/>
+        <input class="input" type="number" placeholder="请输入姓名" bindinput="onNameInput" />
+      </view>
       <view class="form-item">
         <image class="icon" src="/images/手机.png" mode="aspectFill"/>
         <input class="input" type="number" placeholder="请输入手机号" bindinput="onPhoneInput" />

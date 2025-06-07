@@ -7,14 +7,15 @@ Page({
     userBgColor: 'white',
     userTextColor: 'black',
     // 输入
+    username:'',
     phoneNumber: '',
     password: '',
     confirmPassword: '',
     // 隐藏密码
     eye:'/images/隐藏密码.png',
     eye1:'/images/隐藏密码.png',
-    showPassword: false,
-    showConfirmPassword: false,
+    showPassword: true,
+    showConfirmPassword: true,
     // 
     loginColor: '#6bbbea'
   },
@@ -45,6 +46,11 @@ Page({
     }
   },
   // 输入
+  onNameInput: function(event){
+    this.setData({
+      username: event.detail.value
+    });
+  },
   onPhoneInput: function(event) {
     this.setData({
       phoneNumber: event.detail.value
@@ -58,27 +64,6 @@ Page({
   },
 
   onPasswordConfirm: function(event) {
-    // const { password } = this.data; // 获取当前输入的密码
-    // const confirmPassword = event.detail.value; // 获取确认密码的输入值
-
-    // if (!password) {
-    //   // 如果密码为空，提示输入密码为空
-    //   wx.showToast({
-    //     title: '输入密码为空',
-    //     icon: 'none'
-    //   });
-    // } else if (password !== confirmPassword) {
-    //   // 如果两次密码不一致，提示密码不一致
-    //   wx.showToast({
-    //     title: '密码不一致',
-    //     icon: 'none'
-    //   });
-    // } else {
-    //   // 如果两次密码一致，更新数据并继续后续逻辑
-    //   this.setData({
-    //     confirmPassword: confirmPassword
-    //   });
-    // }
     this.setData({
       confirmPassword: event.detail.value
     });
@@ -98,8 +83,15 @@ Page({
   },
   // 注册
   onSubmit: function() {
-    const { role, phoneNumber, password, confirmPassword } = this.data;
+    const {username, role, phoneNumber, password, confirmPassword } = this.data;
 
+    if (!username) {
+      wx.showToast({
+        title: '姓名不能为空',
+        icon: 'none'
+      });
+      return;
+    }
     // 验证手机号是否为空
     if (!phoneNumber) {
       wx.showToast({
@@ -155,6 +147,7 @@ Page({
       url: 'http://localhost:8080/register',
       method: 'POST',
       data: {
+        username: username,
         role: role,
         phoneNumber:phoneNumber,
         confirmPassword:confirmPassword
@@ -173,6 +166,11 @@ Page({
           }else if(res.data === "用户已注册"){
             wx.showToast({
               title: '用户已注册',
+              icon: 'none'
+            });
+          }else if(res.data === "待审核"){
+            wx.showToast({
+              title: '待审核,请耐心等待',
               icon: 'none'
             });
           }

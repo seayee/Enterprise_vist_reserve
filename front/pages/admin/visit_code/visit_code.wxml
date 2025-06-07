@@ -1,0 +1,39 @@
+<!-- pages/admin/visit_code/visit_code.wxml -->
+<view class="container">
+  <!-- 顶部导航栏 -->
+  <view class="navbar">
+    <view class="navbar-title">访客二维码</view>
+  </view>
+
+  <!-- 主要内容区 -->
+  <view class="content">
+    <!-- 用户信息卡片 -->
+    <view class="user-card">
+      <view class="avatar-container">
+        <image class="avatar" src="/images/用户.png" mode="aspectFill"></image>
+      </view>
+      <view class="user-info">
+        <text class="user-name">{{userData.username}}</text>
+        <text class="user-role">{{userData.role}}</text>
+      </view>
+    </view>
+
+    <!-- 二维码容器 -->
+    <view class="qrcode-container">
+      <view class="qrcode-card">
+        <image class="qrcode-image" src="{{visitCodeUrl || ''}}" mode="aspectFit" bindtap="previewQRCode"></image>
+        <text class="qrcode-status">{{qrcodeStatus}}</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="button-group">
+      <button class="save-button" bindtap="saveQRCode" loading="{{saving}}">
+        <text class="button-text">保存图片</text>
+      </button>
+      <button class="invite-button" bindtap="inviteVisitor">
+        <text class="button-text">邀请访客</text>
+      </button>
+    </view>
+  </view>
+</view>

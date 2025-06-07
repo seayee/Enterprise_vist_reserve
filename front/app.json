@@ -2,11 +2,16 @@
   "entryPagePath": "pages/login/login",
   "pages": [
     "pages/index/index",
-    "pages/my/my",
     "pages/login/login",
     "pages/register/register",
     "pages/admin/home/home",
-    "pages/user/home/home"
+    "pages/admin/my/my",
+    "pages/admin/visit/visit",
+    "pages/admin/visit_code/visit_code",
+    "pages/visit_apply/visit_apply",
+    "pages/visitor/visitor",
+    "pages/admin/notice/notice",
+    "pages/admin/register-audit/register-audit"
   ],
   "window": {
     "navigationBarTitleText": "XX公司访客预约系统",
@@ -21,13 +26,25 @@
     "position": "bottom",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/admin/home/home",
         "text": "首页",
         "iconPath": "images/首页.png",
         "selectedIconPath": "images/首页-选中.png"
       },
       {
-        "pagePath": "pages/my/my",
+        "pagePath": "pages/admin/notice/notice",
+        "text": "通知",
+        "iconPath": "images/通知.png",
+        "selectedIconPath": "images/通知-选中.png"
+      },
+      {
+        "pagePath": "pages/admin/visit/visit",
+        "text": "访客",
+        "iconPath": "images/访客.png",
+        "selectedIconPath": "images/访客-选中.png"
+      },
+      {
+        "pagePath": "pages/admin/my/my",
         "text": "我的",
         "iconPath": "images/我的.png",
         "selectedIconPath": "images/我的-选中.png"

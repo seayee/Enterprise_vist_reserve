@@ -13,16 +13,18 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
+        System.out.println("Username: " + request.getUsername());
         System.out.println("Role: " + request.getRole());
         System.out.println("Phone Number: " + request.getPhoneNumber());
         System.out.println("Confirm Password: " + request.getConfirmPassword());
 //        处理注册
 
-        return userService.registerUser(request.getPhoneNumber(), request.getConfirmPassword(), request.getRole());
+        return userService.registerUser(request.getUsername(), request.getPhoneNumber(), request.getConfirmPassword(), request.getRole());
     }
 
     // 请求体对象
     public static class RegisterRequest {
+        private String username;
         private String role;
         private String phoneNumber;
         private String confirmPassword;
@@ -50,6 +52,13 @@ public class RegisterController {
 
         public void setConfirmPassword(String confirmPassword) {
             this.confirmPassword = confirmPassword;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+        public String getUsername() {
+            return username;
         }
     }
 }

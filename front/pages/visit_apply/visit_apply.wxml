@@ -1,0 +1,120 @@
+<!-- pages/visit_apply/visit_apply.wxml -->
+<view class="container">
+  <view class="form" style="width: 674rpx; display: block; box-sizing: border-box">
+    <!-- 页面标题 -->
+    <view class="page-title">访客申请</view>
+
+    <!-- 表单容器 -->
+    <form class="form-container" bindsubmit="onFormSubmit">
+      <!-- 访客姓名 -->
+      <view class="form-item">
+        <label class="form-label">访客姓名</label>
+        <input 
+          class="form-input" 
+          name="visitorName" 
+          type="text" 
+          placeholder="请填写姓名" 
+          required 
+          bindblur="validateName"
+        />
+        <text class="error-tip" wx:if="{{errors.visitorName}}">{{errors.visitorName}}</text>
+      </view>
+
+      <!-- 被访者姓名 -->
+      <view class="form-item">
+        <label class="form-label">被访者姓名</label>
+        <input 
+          class="form-input" 
+          name="visitedName" 
+          type="text" 
+          placeholder="请填写被访者姓名" 
+          required 
+          bindblur="validateVisitedName"
+        />
+        <text class="error-tip" wx:if="{{errors.visitedName}}">{{errors.visitedName}}</text>
+      </view>
+
+      <!-- 来访部门 -->
+      <view class="form-item">
+        <label class="form-label">来访部门</label>
+        <input 
+          class="form-input" 
+          name="department" 
+          type="text" 
+          placeholder="请填写部门名称" 
+          required 
+          bindblur="validateDepartment"
+        />
+        <text class="error-tip" wx:if="{{errors.department}}">{{errors.department}}</text>
+      </view>
+
+      <!-- 访客手机号 -->
+      <view class="form-item">
+        <label class="form-label">访客手机号</label>
+        <input 
+          class="form-input" 
+          name="visitorPhone" 
+          type="number" 
+          placeholder="请填写11位手机号" 
+          required 
+          bindblur="validatePhone"
+        />
+        <text class="error-tip" wx:if="{{errors.visitorPhone}}">{{errors.visitorPhone}}</text>
+      </view>
+
+      <!-- 公司名称 -->
+      <view class="form-item">
+        <label class="form-label">访客公司名称</label>
+        <input 
+          class="form-input" 
+          name="company" 
+          type="text" 
+          placeholder="请填写公司全称" 
+          required 
+          bindblur="validateCompany"
+        />
+        <text class="error-tip" wx:if="{{errors.company}}">{{errors.company}}</text>
+      </view>
+
+      <!-- 来访人数 -->
+      <view class="form-item">
+        <label class="form-label">来访人数</label>
+        <input 
+          class="form-input" 
+          name="visitorCount" 
+          type="number" 
+          placeholder="请填写人数（1-10人）" 
+          required 
+          min="1" 
+          max="10" 
+          bindblur="validateCount"
+        />
+        <text class="error-tip" wx:if="{{errors.visitorCount}}">{{errors.visitorCount}}</text>
+      </view>
+
+      <!-- 来访原因 -->
+      <view class="form-item">
+        <label class="form-label">来访原因</label>
+        <textarea 
+          class="form-textarea" 
+          name="reason" 
+          placeholder="请详细说明来访目的" 
+          required 
+          bindblur="validateReason"
+          auto-height
+        ></textarea>
+        <text class="error-tip" wx:if="{{errors.reason}}">{{errors.reason}}</text>
+      </view>
+
+      <!-- 提交按钮 -->
+      <button 
+        class="submit-button" 
+        type="primary" 
+        form-type="submit" 
+        loading="{{isLoading}}"
+      >
+        {{isLoading ? '提交中...' : '立即提交'}}
+      </button>
+    </form>
+  </view>
+</view>
